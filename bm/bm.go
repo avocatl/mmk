@@ -27,7 +27,7 @@ var (
 	errBadBaseURL   = errors.New("malformed base url, it must contain a trailing slash")
 )
 
-// Client manages communication with Mollie's API.
+// Client manages communication with MMK's API.
 type Client struct {
 	BaseURL        *url.URL
 	authentication string
