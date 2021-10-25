@@ -34,7 +34,6 @@ type Client struct {
 	userAgent      string
 	client         *http.Client
 	common         service // Reuse a single struct instead of allocating one for each service on the heap.
-	config         *Config
 	// Services
 }
 
@@ -44,7 +43,7 @@ type Client struct {
 //
 // NewClient will lookup the environment for values to assign to the
 // API token (`MMK_API_TOKEN`).
-func NewClient(baseClient *http.Client, c *Config) (mmk *Client, err error) {
+func NewClient(baseClient *http.Client) (mmk *Client, err error) {
 	if baseClient == nil {
 		baseClient = http.DefaultClient
 	}
@@ -54,7 +53,6 @@ func NewClient(baseClient *http.Client, c *Config) (mmk *Client, err error) {
 	mmk = &Client{
 		BaseURL: u,
 		client:  baseClient,
-		config:  c,
 	}
 
 	mmk.common.client = mmk
