@@ -47,7 +47,7 @@ func (cs *CountryService) List() (countries []*Country, err error) {
 func (cs *CountryService) Get(id string) (c *Country, err error) {
 	var target string
 	{
-		target = fmt.Sprintf("country/%s", scapeQueryParams(id))
+		target = fmt.Sprintf("country/%s", escapePath(id))
 	}
 
 	res, err := cs.get(target)
