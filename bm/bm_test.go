@@ -1,6 +1,7 @@
 package bm
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -207,32 +208,6 @@ func TestClient_NewAPIRequest_NativeURLParseError(t *testing.T) {
 	}
 }
 
-func TestClient_Do(t *testing.T) {
-	setEnv()
-	setup()
-	defer func() {
-		unsetEnv()
-		teardown()
-	}()
-
-	tMux.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "GET")
-		testHeader(t, r, AuthHeader, "Bearer test_token")
-		w.WriteHeader(http.StatusOK)
-	})
-
-	req, _ := tClient.NewAPIRequest(http.MethodGet, "/test", nil)
-	res, err := tClient.Do(req)
-
-	if err != nil {
-		t.Errorf("unexpected error received: %v", err)
-	}
-
-	if res.StatusCode != http.StatusOK {
-		t.Errorf("request failed: %+v", res)
-	}
-}
-
 func TestClient_DoErrInvalidJSON(t *testing.T) {
 	func() {
 		setEnv()
@@ -331,6 +306,29 @@ func TestCheckResponse(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+func TestClient_Do(t *testing.T) {
+	setEnv()
+	setup()
+	defer unsetEnv()
+	defer teardown()
+
+	tMux.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		testHeader(t, r, AuthHeader, "Bearer test_token")
+		w.WriteHeader(http.StatusOK)
+	})
+
+	req, err := tClient.NewAPIRequest(http.MethodGet, "/test", nil)
+	if err != nil {
+		t.Error(err)
+	}
+
+	_, err = tClient.Do(req)
+	if err != nil {
+		fmt.Print(err, "error")
 	}
 }
 

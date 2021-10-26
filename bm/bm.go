@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -137,7 +138,7 @@ func (c *Client) Do(req *http.Request) (*Response, error) {
 
 func newResponse(r *http.Response) (*Response, error) {
 	var res Response
-	c, err := io.ReadAll(r.Body)
+	c, err := ioutil.ReadAll(r.Body)
 	if err == nil {
 		res.content = c
 	}
@@ -167,7 +168,7 @@ func newError(r *http.Response) *Error {
 	e.Response = r
 	e.Code = r.StatusCode
 	e.Message = r.Status
-	c, err := io.ReadAll(r.Body)
+	c, err := ioutil.ReadAll(r.Body)
 	if err == nil {
 		e.Content = string(c)
 	}
