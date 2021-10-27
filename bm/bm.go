@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -34,8 +35,8 @@ type Client struct {
 	userAgent      string
 	client         *http.Client
 	common         service // Reuse a single struct instead of allocating one for each service on the heap.
-	config         *Config
 	// Services
+	Countries *CountryService
 }
 
 // NewClient returns a new MMK HTTP API client.
@@ -44,7 +45,7 @@ type Client struct {
 //
 // NewClient will lookup the environment for values to assign to the
 // API token (`MMK_API_TOKEN`).
-func NewClient(baseClient *http.Client, c *Config) (mmk *Client, err error) {
+func NewClient(baseClient *http.Client) (mmk *Client, err error) {
 	if baseClient == nil {
 		baseClient = http.DefaultClient
 	}
@@ -54,7 +55,6 @@ func NewClient(baseClient *http.Client, c *Config) (mmk *Client, err error) {
 	mmk = &Client{
 		BaseURL: u,
 		client:  baseClient,
-		config:  c,
 	}
 
 	mmk.common.client = mmk
@@ -67,6 +67,7 @@ func NewClient(baseClient *http.Client, c *Config) (mmk *Client, err error) {
 	}, ";")
 
 	// services for resources
+	mmk.Countries = (*CountryService)(&mmk.common)
 
 	// Parse authorization from specified environment variable
 	tkn, ok := os.LookupEnv(APITokenContainer)
@@ -137,7 +138,7 @@ func (c *Client) Do(req *http.Request) (*Response, error) {
 
 func newResponse(r *http.Response) (*Response, error) {
 	var res Response
-	c, err := io.ReadAll(r.Body)
+	c, err := ioutil.ReadAll(r.Body)
 	if err == nil {
 		res.content = c
 	}
@@ -167,7 +168,7 @@ func newError(r *http.Response) *Error {
 	e.Response = r
 	e.Code = r.StatusCode
 	e.Message = r.Status
-	c, err := io.ReadAll(r.Body)
+	c, err := ioutil.ReadAll(r.Body)
 	if err == nil {
 		e.Content = string(c)
 	}
