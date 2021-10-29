@@ -31,6 +31,7 @@ type AvailabilityOptions struct {
 	CompanyID int `url:"companyId,omitempty"`
 }
 
+// GetAvailability returns availability for specific year.
 func (as *AvailabilityService) GetAvailability(year int, opts *AvailabilityOptions) (ar []*AvailabilityResponse, err error) {
 	var target string
 	{
