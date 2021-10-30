@@ -1,5 +1,5 @@
 # This is an example goreleaser.yaml file with some sane defaults.
-project_name: mollie-api-golang
+project_name: mmk
 build:
   skip: true
 changelog:
