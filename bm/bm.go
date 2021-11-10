@@ -36,7 +36,8 @@ type Client struct {
 	client         *http.Client
 	common         service // Reuse a single struct instead of allocating one for each service on the heap.
 	// Services
-	Countries *CountryService
+	Availability *AvailabilityService
+	Countries    *CountryService
 }
 
 // NewClient returns a new MMK HTTP API client.
@@ -68,6 +69,7 @@ func NewClient(baseClient *http.Client) (mmk *Client, err error) {
 
 	// services for resources
 	mmk.Countries = (*CountryService)(&mmk.common)
+	mmk.Availability = (*AvailabilityService)(&mmk.common)
 
 	// Parse authorization from specified environment variable
 	tkn, ok := os.LookupEnv(APITokenContainer)
