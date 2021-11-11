@@ -1,8 +1,11 @@
 package bm
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
+	"time"
 )
 
 // ProductEnum is a type alias for supported mmk products.
@@ -65,4 +68,29 @@ func (e *Error) Error() string {
 type Response struct {
 	*http.Response
 	content []byte
+}
+
+// MMKDateTime allows to perform (un)marshal operations with JSON
+// on MMK's date time formatted response objects.
+type MMKDateTime struct {
+	time.Time
+}
+
+// MarshalJSON overrides the default marshal action
+// for the Time struct. Returns date as YYYY-MM-DD HH:ii:ss formatted string.
+func (d *MMKDateTime) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.Time.Format("2006-01-02 15:04:05"))
+}
+
+// UnmarshalJSON overrides the default unmarshal action
+// for the Time struct.
+func (d *MMKDateTime) UnmarshalJSON(b []byte) error {
+	s := string(b)
+	s = strings.Trim(s, "\"")
+	t, err := time.Parse("2006-01-02 15:04:05", s)
+	if err != nil {
+		return err
+	}
+	d.Time = t
+	return nil
 }

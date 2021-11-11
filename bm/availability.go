@@ -5,21 +5,20 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/google/go-querystring/query"
 )
 
 // AvailabilityResponse descriptor.
 type AvailabilityResponse struct {
-	ID                   int64      `json:"id,omitempty"`
-	YatchID              int64      `json:"yatchId,omitempty"`
-	Status               int64      `json:"status,omitempty"`
-	BaseFromID           int64      `json:"baseFromId,omitempty"`
-	BaseToID             int64      `json:"baseToId,omitempty"`
-	DateFrom             *time.Time `json:"dateFrom,omitempty"`
-	DateTo               *time.Time `json:"dateTo,omitempty"`
-	OptionExpirationDate *time.Time `json:"optionExpirationDate,omitempty"`
+	ID                   int64        `json:"id,omitempty"`
+	YachtID              int64        `json:"yachtId,omitempty"`
+	Status               int64        `json:"status,omitempty"`
+	BaseFromID           int64        `json:"baseFromId,omitempty"`
+	BaseToID             int64        `json:"baseToId,omitempty"`
+	DateFrom             *MMKDateTime `json:"dateFrom,omitempty"`
+	DateTo               *MMKDateTime `json:"dateTo,omitempty"`
+	OptionExpirationDate *MMKDateTime `json:"optionExpirationDate,omitempty"`
 }
 
 // AvailabilityService operates over availability requests.
@@ -35,7 +34,7 @@ type AvailabilityOptions struct {
 func (as *AvailabilityService) GetAvailability(year int, opts *AvailabilityOptions) (ar []*AvailabilityResponse, err error) {
 	var target string
 	{
-		target = fmt.Sprintf("/availability/%s", strconv.Itoa(year))
+		target = fmt.Sprintf("availability/%s", strconv.Itoa(year))
 
 		if opts != nil {
 			v, _ := query.Values(opts)
@@ -73,13 +72,13 @@ const (
 // ShortAvailabilityOptions available on MMK's API.
 type ShortAvailabilityOptions struct {
 	CompanyID int64                   `url:"companyId,omitempty"`
-	YatchID   int64                   `url:"yatchId,omitempty"`
+	YachtID   int64                   `url:"yachtId,omitempty"`
 	Format    ShortAvailabilityFormat `url:"format,omitempty"`
 }
 
 // ShortAvailabilityResponse descriptor.
 type ShortAvailabilityResponse struct {
-	YatchID int64  `json:"yatchId,omitempty"`
+	YatchID int64  `json:"y,omitempty"`
 	BS      string `json:"bs,omitempty"`
 }
 
@@ -106,10 +105,10 @@ type ShortAvailabilityResponse struct {
 // reservation status id is used.
 // Example, if availabilityInfo is “2222 2220 0000...” it means that boat is under status Option
 // from January 1 until January 8, and it is free from January 8 etc.
-func (as *AvailabilityService) GetShortAvailability(year int, opts *ShortAvailabilityOptions) (sar *ShortAvailabilityResponse, err error) {
+func (as *AvailabilityService) GetShortAvailability(year int, opts *ShortAvailabilityOptions) (sar []*ShortAvailabilityResponse, err error) {
 	var target string
 	{
-		target = fmt.Sprintf("/shortAvailability/%s", strconv.Itoa(year))
+		target = fmt.Sprintf("shortAvailability/%s", strconv.Itoa(year))
 
 		if opts != nil {
 			v, _ := query.Values(opts)
