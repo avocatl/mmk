@@ -3,6 +3,7 @@ package bm
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/google/go-querystring/query"
 	"net/http"
 	"time"
 )
@@ -25,8 +26,8 @@ type Offer struct {
 	DateTo             *time.Time `json:"dateTo,omitempty"`
 }
 
-// OfferParams are params that could be passed to the offer request
-type OfferParams struct {
+// OfferOptions are params that could be passed to the offer request
+type OfferOptions struct {
 	DateFrom *time.Time
 	DateTo   *time.Time
 	YachtId  *int64
@@ -35,16 +36,14 @@ type OfferParams struct {
 type OffersService service
 
 // GetOffers returns offers based on passed parameters
-func (os *OffersService) GetOffers(op *OfferParams) (or []*Offer, err error) {
+func (os *OffersService) GetOffers(opts *OfferOptions) (or []*Offer, err error) {
 	var target string
 	{
-		target = fmt.Sprintf(
-			"offers?dateFrom=%s&dateTo=%s",
-			op.DateFrom.Format("20060102T000000"),
-			op.DateTo.Format("20060102T000000"),
-		)
-		if op.YachtId != nil {
-			target = fmt.Sprintf("%s&yachtId=%d", target, op.YachtId)
+		target = "offers"
+
+		if opts != nil {
+			v, _ := query.Values(opts)
+			target = fmt.Sprintf("%s?%s", target, v.Encode())
 		}
 	}
 
