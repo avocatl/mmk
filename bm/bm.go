@@ -38,6 +38,7 @@ type Client struct {
 	// Services
 	Availability *AvailabilityService
 	Countries    *CountryService
+	Offers       *OffersService
 }
 
 // NewClient returns a new MMK HTTP API client.
