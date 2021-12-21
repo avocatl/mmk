@@ -28,9 +28,9 @@ type Offer struct {
 
 // OfferOptions are params that could be passed to the offer request
 type OfferOptions struct {
-	DateFrom *time.Time
-	DateTo   *time.Time
-	YachtId  *int64
+	DateFrom string
+	DateTo   string
+	YachtIds *[]int
 }
 
 type OffersService service
