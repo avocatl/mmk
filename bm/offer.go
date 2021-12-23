@@ -21,8 +21,8 @@ type Offer struct {
 	EndBase            string     `json:"endBase,omitempty"`
 	Product            string     `json:"product,omitempty"`
 	Currency           string     `json:"currency,omitempty"`
-	DateFrom           *offerTime `json:"dateFrom,omitempty"`
-	DateTo             *offerTime `json:"dateTo,omitempty"`
+	DateFrom           *OfferTime `json:"dateFrom,omitempty"`
+	DateTo             *OfferTime `json:"dateTo,omitempty"`
 }
 
 // OfferOptions are params that could be passed to the offer request
