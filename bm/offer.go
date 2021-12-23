@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/google/go-querystring/query"
 	"net/http"
-	"time"
 )
 
 // Offer is a product, price and time frame proposal for a
@@ -22,8 +21,8 @@ type Offer struct {
 	EndBase            string     `json:"endBase,omitempty"`
 	Product            string     `json:"product,omitempty"`
 	Currency           string     `json:"currency,omitempty"`
-	DateFrom           *time.Time `json:"dateFrom,omitempty"`
-	DateTo             *time.Time `json:"dateTo,omitempty"`
+	DateFrom           *offerTime `json:"dateFrom,omitempty"`
+	DateTo             *offerTime `json:"dateTo,omitempty"`
 }
 
 // OfferOptions are params that could be passed to the offer request
