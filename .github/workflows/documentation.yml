@@ -20,7 +20,7 @@ jobs:
     name: generating godoc markdown files
     steps:
     - name: Godocdown execution
-      uses: avocatl/godocdown-action
+      uses: avocatl/godocdown-action@master
       with:
         pkg-source: 'bm/'
     - name: Commit files
