@@ -3,7 +3,6 @@ package bm
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -76,7 +75,6 @@ func (bs *BaseService) Get(id string) (b *Base, err error) {
 
 func (cs *BaseService) get(path string) (res *Response, err error) {
 	req, err := cs.client.NewAPIRequest(http.MethodGet, path, nil)
-	log.Print(req.URL.String())
 	if err != nil {
 		return
 	}

@@ -3,7 +3,6 @@ package bm
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -64,7 +63,6 @@ func (cs *CountryService) Get(id string) (c *Country, err error) {
 
 func (cs *CountryService) get(path string) (res *Response, err error) {
 	req, err := cs.client.NewAPIRequest(http.MethodGet, path, nil)
-	log.Print(req.URL.String())
 	if err != nil {
 		return
 	}
