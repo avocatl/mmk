@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     name: generating godoc markdown files
     steps:
+    - uses: actions/checkout@v2
     - name: Godocdown execution
       uses: avocatl/godocdown-action@master
       with:
