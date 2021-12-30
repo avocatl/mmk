@@ -26,6 +26,7 @@ jobs:
         pkg-source: 'bm/'
     - name: Commit files
       run: |
+          git config user.email 7926849+VictorAvelar@users.noreply.github.com
           git status
           git add .
           git commit -m "Push generated documentation"
