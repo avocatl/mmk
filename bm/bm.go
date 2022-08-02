@@ -39,6 +39,7 @@ type Client struct {
 	Availability *AvailabilityService
 	Countries    *CountryService
 	Offers       *OffersService
+	Reservation  *ReservationService
 }
 
 // NewClient returns a new MMK HTTP API client.
@@ -72,6 +73,7 @@ func NewClient(baseClient *http.Client) (mmk *Client, err error) {
 	mmk.Countries = (*CountryService)(&mmk.common)
 	mmk.Availability = (*AvailabilityService)(&mmk.common)
 	mmk.Offers = (*OffersService)(&mmk.common)
+	mmk.Reservation = (*ReservationService)(&mmk.common)
 
 	// Parse authorization from specified environment variable
 	tkn, ok := os.LookupEnv(APITokenContainer)
