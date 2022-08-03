@@ -33,7 +33,7 @@ type ReservationRequest struct {
 
 // ReservationList describes the struct for a list of Reservation
 type ReservationList struct {
-	Reservations []Reservation `json:"Reservations,omitempty"`
+	Reservations []*Reservation `json:"Reservations,omitempty"`
 }
 
 // ReservationService operates over reservation requests.
@@ -70,7 +70,7 @@ func (rsrv *ReservationService) GetReservation(rr *ReservationRequest) (rl *Rese
 		if err = json.Unmarshal(res.content, &r); err != nil {
 			return
 		}
-		rl.Reservations = append(rl.Reservations, *r)
+		rl.Reservations = append(rl.Reservations, r)
 	}
 
 	return
