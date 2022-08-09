@@ -44,7 +44,7 @@ func (rsrv *ReservationService) GetReservation(rr *ReservationRequest) (rl *Rese
 	if rr.Year != nil {
 		target = fmt.Sprintf("reservations/%d", rr.Year)
 	} else if rr.ID != nil {
-		target = fmt.Sprintf("reservaiton/%d", rr.ID)
+		target = fmt.Sprintf("reservation/%d", rr.ID)
 	} else {
 		err = errors.New("error processing request, either year or id needs to be set")
 		return
