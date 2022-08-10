@@ -69,7 +69,7 @@ func (rsrv *ReservationService) GetReservation(rr *ReservationRequest) (rl *Rese
 		if err = json.Unmarshal(res.content, &r); err != nil {
 			return
 		}
-		rl.Reservations = append(rl.Reservations, r)
+		rl.Reservations = append(make([]*Reservation, 0), r)
 	}
 
 	return
