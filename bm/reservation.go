@@ -42,9 +42,9 @@ type ReservationService service
 func (rsrv *ReservationService) GetReservation(rr *ReservationRequest) (rl *ReservationList, err error) {
 	var target string
 	if rr.Year != nil {
-		target = fmt.Sprintf("reservations/%v", rr.Year)
+		target = fmt.Sprintf("reservations/%d", *rr.Year)
 	} else if rr.ID != nil {
-		target = fmt.Sprintf("reservation/%v", rr.ID)
+		target = fmt.Sprintf("reservation/%d", *rr.ID)
 	} else {
 		err = errors.New("error processing request, either year or id needs to be set")
 		return
@@ -105,7 +105,7 @@ func (rsrv *ReservationService) CreateOption(rr *Reservation) (r *Reservation, e
 func (rsrv *ReservationService) CreateBooking(rr *ReservationRequest) (r *Reservation, err error) {
 	var target string
 	if rr.ID != nil {
-		target = fmt.Sprintf("reservation/%v", rr.ID)
+		target = fmt.Sprintf("reservation/%d", *rr.ID)
 	} else {
 		err = errors.New("id needs to be set when creating a reservation")
 		return
