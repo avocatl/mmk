@@ -28,7 +28,7 @@ const (
 	ModelItem       ItemTypeEnum = "model"
 	ReservationItem ItemTypeEnum = "reservation"
 	UserItem        ItemTypeEnum = "item"
-	YatchItem       ItemTypeEnum = "yatch"
+	YachtItem       ItemTypeEnum = "yatch"
 )
 
 // VAT calculation values.

@@ -78,7 +78,7 @@ type ShortAvailabilityOptions struct {
 
 // ShortAvailabilityResponse descriptor.
 type ShortAvailabilityResponse struct {
-	YatchID int64  `json:"y,omitempty"`
+	YachtID int64  `json:"y,omitempty"`
 	BS      string `json:"bs,omitempty"`
 }
 

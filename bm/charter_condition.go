@@ -23,7 +23,7 @@ type CharterCondition struct {
 type CharterConditionService service
 
 // GetCharterCondition
-func (os *CharterConditionService) GetCharterCondition(id int) (or *Yatch, err error) {
+func (os *CharterConditionService) GetCharterCondition(id int) (or *Yacht, err error) {
 	var target string
 	{
 		target = fmt.Sprintf("yacht/%d", id)

@@ -8,7 +8,7 @@ import (
 
 // Price describes the base price for an operation with MMK.
 type Price struct {
-	YatchID            int64        `json:"yatchId,omitempty"`
+	YachtID            int64        `json:"yatchId,omitempty"`
 	DateFrom           *MMKDateTime `json:"dateFrom,omitempty"`
 	DateTo             *MMKDateTime `json:"dateTo,omitempty"`
 	Product            string       `json:"product,omitempty"`

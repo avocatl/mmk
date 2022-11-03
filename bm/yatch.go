@@ -1,7 +1,7 @@
 package bm
 
-// Yatch describes an offered YatchType product.
-type Yatch struct {
+// Yacht describes an offered YachtType product.
+type Yacht struct {
 	ID                   int64      `json:"id,omitempty"`
 	ModelID              int64      `json:"modelID,omitempty"`
 	ShipyardID           int64      `json:"shipyardID,omitempty"`

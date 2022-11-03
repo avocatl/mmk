@@ -14,7 +14,7 @@ type Reservation struct {
 	DateFrom       *MMKDateTime `json:"dateFrom,omitempty"`
 	DateTo         *MMKDateTime `json:"dateTo,omitempty"`
 	ExpirationDate *MMKDateTime `json:"ExpirationDate,omitempty"`
-	YatchID        int64        `json:"yatchId,omitempty"`
+	YachtID        int64        `json:"yatchId,omitempty"`
 	Status         int64        `json:"status,omitempty"`
 	ProductName    string       `json:"productName,omitempty"`
 	BaseFromID     int64        `json:"baseFromId,omitempty"`
